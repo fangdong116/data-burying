@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qingyang.test.CarMakeMapper" >
+
+<!-- for car brandResult Map-->
+<resultMap id="BaseResultMap" type="com.qingyang.test.CarMakeEntity" >
+	<result column="make_id" property="makeId" jdbcType="INTEGER" />
+	<result column="make_name" property="makeName" jdbcType="VARCHAR" />
+	<result column="view_name" property="viewName" jdbcType="VARCHAR" />
+	<result column="first_letter" property="firstLetter" jdbcType="VARCHAR" />
+	<result column="brand_id" property="brandId" jdbcType="INTEGER" />
+	<result column="brand_name" property="brandName" jdbcType="VARCHAR" />
+	<result column="is_valid" property="isValid" jdbcType="INTEGER" />
+	<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+	<result column="create_by" property="createBy" jdbcType="VARCHAR" />
+	<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+	<result column="update_by" property="updateBy" jdbcType="VARCHAR" />
+</resultMap>
+       
+<!-- car_make table all fields -->
+<sql id="Base_Column_List" >
+	 make_id, make_name, view_name, first_letter, brand_id, brand_name, is_valid, create_time, create_by, update_time, update_by
+</sql>
+   
+<!-- 查询条件 -->
+<sql id="Where_Clause">
+<where>
+<trim  suffixOverrides="," >
+	<if test="makeId != null" >
+	    and make_id = #{makeId, jdbcType=INTEGER}
+	</if>
+	 	<if test="makeName != null and makeName != ''" >
+	    and make_name = #{makeName, jdbcType=VARCHAR}
+	</if>
+	 	<if test="viewName != null and viewName != ''" >
+	    and view_name = #{viewName, jdbcType=VARCHAR}
+	</if>
+	 	<if test="firstLetter != null and firstLetter != ''" >
+	    and first_letter = #{firstLetter, jdbcType=VARCHAR}
+	</if>
+	<if test="brandId != null" >
+	    and brand_id = #{brandId, jdbcType=INTEGER}
+	</if>
+	 	<if test="brandName != null and brandName != ''" >
+	    and brand_name = #{brandName, jdbcType=VARCHAR}
+	</if>
+	<if test="isValid != null" >
+	    and is_valid = #{isValid, jdbcType=INTEGER}
+	</if>
+	<if test="createTime != null" >
+	    and create_time = #{createTime, jdbcType=TIMESTAMP}
+	</if>
+	 	<if test="createBy != null and createBy != ''" >
+	    and create_by = #{createBy, jdbcType=VARCHAR}
+	</if>
+	<if test="updateTime != null" >
+	    and update_time = #{updateTime, jdbcType=TIMESTAMP}
+	</if>
+	 	<if test="updateBy != null and updateBy != ''" >
+	    and update_by = #{updateBy, jdbcType=VARCHAR}
+	</if>
+</trim>
+</where>
+</sql>
+
+<!-- 插入记录 -->
+<insert id="insert" parameterType="com.qingyang.test.CarMakeEntity" >
+  	insert into car_make(
+		make_id,
+		make_name,
+		view_name,
+		first_letter,
+		brand_id,
+		brand_name,
+		is_valid,
+		create_time,
+		create_by,
+		update_time,
+		update_by
+	) values (
+		#{makeId, jdbcType=INTEGER},
+		#{makeName, jdbcType=VARCHAR},
+		#{viewName, jdbcType=VARCHAR},
+		#{firstLetter, jdbcType=VARCHAR},
+		#{brandId, jdbcType=INTEGER},
+		#{brandName, jdbcType=VARCHAR},
+		#{isValid, jdbcType=INTEGER},
+		#{createTime, jdbcType=TIMESTAMP},
+		#{createBy, jdbcType=VARCHAR},
+		#{updateTime, jdbcType=TIMESTAMP},
+		#{updateBy, jdbcType=VARCHAR}
+	)
+</insert>
+
+<!-- 插入记录 -->
+<insert id="batchInsert" parameterType="java.util.List" >
+  	insert into car_make(
+		make_id,
+		make_name,
+		view_name,
+		first_letter,
+		brand_id,
+		brand_name,
+		is_valid,
+		create_time,
+		create_by,
+		update_time,
+		update_by
+	) values (
+	<foreach collection="list" item="item" open="" close="" separator="),(">
+		#{item.makeId, jdbcType=INTEGER},
+		#{item.makeName, jdbcType=VARCHAR},
+		#{item.viewName, jdbcType=VARCHAR},
+		#{item.firstLetter, jdbcType=VARCHAR},
+		#{item.brandId, jdbcType=INTEGER},
+		#{item.brandName, jdbcType=VARCHAR},
+		#{item.isValid, jdbcType=INTEGER},
+		#{item.createTime, jdbcType=TIMESTAMP},
+		#{item.createBy, jdbcType=VARCHAR},
+		#{item.updateTime, jdbcType=TIMESTAMP},
+		#{item.updateBy, jdbcType=VARCHAR}
+	</foreach>
+	)
+</insert>
+
+<!-- 根据所选内容更新 -->
+<update id="updateBySelective" parameterType="com.qingyang.test.CarMakeEntity" >
+	update car_make set 
+	<trim  suffixOverrides="," >
+		<if test="makeName != null  and makeName != '' ">
+			make_name = #{makeName, jdbcType=VARCHAR},
+		</if>
+		<if test="viewName != null  and viewName != '' ">
+			view_name = #{viewName, jdbcType=VARCHAR},
+		</if>
+		<if test="firstLetter != null  and firstLetter != '' ">
+			first_letter = #{firstLetter, jdbcType=VARCHAR},
+		</if>
+		<if test="brandId != null  ">
+			brand_id = #{brandId, jdbcType=INTEGER},
+		</if>
+		<if test="brandName != null  and brandName != '' ">
+			brand_name = #{brandName, jdbcType=VARCHAR},
+		</if>
+		<if test="isValid != null  ">
+			is_valid = #{isValid, jdbcType=INTEGER},
+		</if>
+		<if test="createTime != null  ">
+			create_time = #{createTime, jdbcType=TIMESTAMP},
+		</if>
+		<if test="createBy != null  and createBy != '' ">
+			create_by = #{createBy, jdbcType=VARCHAR},
+		</if>
+		<if test="updateTime != null  ">
+			update_time = #{updateTime, jdbcType=TIMESTAMP},
+		</if>
+		<if test="updateBy != null  and updateBy != '' ">
+			update_by = #{updateBy, jdbcType=VARCHAR},
+		</if>
+	</trim> 
+	where make_id = #{makeId, jdbcType=INTEGER}
+</update>
+
+<!-- 删除 -->
+<update id="delete" parameterType="com.qingyang.test.CarMakeEntity">
+	delete from car_make where make_id = #{makeId}
+</update>
+
+    <!-- for car brand查询 -->
+    <select id="select" resultMap="BaseResultMap"
+            parameterType="com.qingyang.test.CarMakeEntity">
+        select
+        <include refid="Base_Column_List"/>
+        from car_make
+        <include refid="Where_Clause"/>
+    </select>
+
+    <select id="selectAllCarMakes" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from car_make
+        WHERE is_valid=1
+		group by make_name
+    </select>
+
+    <!-- 查询 -->
+    <select id="selectByNames" resultMap="BaseResultMap"  parameterType="java.util.List">
+        select
+        <include refid="Base_Column_List"/>
+        from car_make
+        where is_valid = 1 and
+        make_name in
+        <foreach collection="list" item="item" index="index" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </select>
+</mapper>   

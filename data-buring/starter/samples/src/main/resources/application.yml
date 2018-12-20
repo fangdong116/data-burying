@@ -1,0 +1,11 @@
+data:
+  buring:
+    exchange : topic
+    routingKey : user.hello
+spring:
+  rabbitmq:
+      addresses: 192.168.1.64:5672, 192.168.1.63:5672
+      port: 5672
+      username: develop
+      password: xiaoka666
+      virtual-host: xlh

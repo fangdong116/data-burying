@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qingyang.test.dao.AttachmentDataMapper">
+
+    <select id="getLoginCount" resultType="java.lang.Integer">
+        SELECT
+            partid
+        FROM
+        PARTS where StorePartNo like '%' + #{code} + '%';
+    </select>
+</mapper>
